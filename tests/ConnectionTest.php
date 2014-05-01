@@ -73,5 +73,14 @@ class ConnectionTest extends PHPUnit_Framework_TestCase {
 		}
 	}
 
+	public function testGetNonExistingTable() {
+		$this->assertInstanceOf(
+			'Doctrine\DBAL\Schema\Table',
+			$this->connection->getSchemaManager()->listTableDetails( 'kittens' )
+		);
+
+		$this->assertFalse( $this->connection->getSchemaManager()->tablesExist( 'kittens' ) );
+	}
+
 }
 
